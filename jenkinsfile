@@ -1,34 +1,43 @@
 
-
 pipeline {
 
-    agent any 
 
-    stages {
+agent any
 
-        stage('Clone Code'){
+environment {
+    IMAGE_NAME = "venkatesh/jenkins-project3"
+    CONTAINER_NAME = "jenkins-project3-container"
+}
 
-            steps {
-                git 'https://github.com/your-repo/your-project.git'
-            }
+stages {
+
+    stage('Clone Code') {
+        steps {
+            git branch: 'main', url: 'https://github.com/venkatesh-db/jenkins-project3.git'
         }
-
-        stage('Build'){
-
-            steps {
-
-                sh 'docker build -t your-image-name .'
-            }
-        }
-
-        stage('Run'){
-
-            steps {
-                sh 'docker run -d -p 8080:8080 your-image-name'
-            }
-
-        }
-
     }
+
+    stage('Build Docker Image') {
+        steps {
+            sh 'docker build -t $IMAGE_NAME .'
+        }
+    }
+
+    stage('Stop Old Container') {
+        steps {
+            sh '''
+            docker stop $CONTAINER_NAME || true
+            docker rm $CONTAINER_NAME || true
+            '''
+        }
+    }
+
+    stage('Run Container') {
+        steps {
+            sh 'docker run -d -p 8081:8080 --name $CONTAINER_NAME $IMAGE_NAME'
+        }
+    }
+
+}
 
 }
