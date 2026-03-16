@@ -1,43 +1,51 @@
-
 pipeline {
 
-
+```
 agent any
 
 environment {
     IMAGE_NAME = "venkatesh/jenkins-project3"
     CONTAINER_NAME = "jenkins-project3-container"
+    DOCKER = "/usr/local/bin/docker"
+    REPO_URL = "https://github.com/venkatesh-db/jenkins-project3.git"
 }
 
 stages {
 
-    stage('Clone Code') {
+    stage('Checkout Code') {
         steps {
-            git branch: 'main', url: 'https://github.com/venkatesh-db/jenkins-project3.git'
+            git branch: 'main', url: "$REPO_URL"
+        }
+    }
+
+    stage('Check Docker') {
+        steps {
+            sh '$DOCKER --version'
         }
     }
 
     stage('Build Docker Image') {
         steps {
-            sh 'docker build -t $IMAGE_NAME .'
+            sh '$DOCKER build -t $IMAGE_NAME .'
         }
     }
 
     stage('Stop Old Container') {
         steps {
             sh '''
-            docker stop $CONTAINER_NAME || true
-            docker rm $CONTAINER_NAME || true
+            $DOCKER stop $CONTAINER_NAME || true
+            $DOCKER rm $CONTAINER_NAME || true
             '''
         }
     }
 
     stage('Run Container') {
         steps {
-            sh 'docker run -d -p 8081:8080 --name $CONTAINER_NAME $IMAGE_NAME'
+            sh '$DOCKER run -d -p 8081:8080 --name $CONTAINER_NAME $IMAGE_NAME'
         }
     }
 
 }
+```
 
 }
