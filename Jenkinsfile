@@ -1,12 +1,13 @@
 pipeline {
 
-
+```
 agent any
 
 environment {
     IMAGE_NAME = "venkatesh/jenkins-project3"
     CONTAINER_NAME = "jenkins-project3-container"
     DOCKER = "/usr/local/bin/docker"
+    PATH = "/usr/local/bin:/Applications/Docker.app/Contents/Resources/bin:/usr/bin:/bin"
     REPO_URL = "https://github.com/venkatesh-db/jenkins-project3.git"
 }
 
@@ -46,6 +47,6 @@ stages {
     }
 
 }
-
+```
 
 }
