@@ -1,0 +1,64 @@
+
+ developer 
+
+  ||
+
+  git repository  - code
+  https://github.com/venkatesh-db/5_Devops_Project_Placements
+   branch name - main 
+   two devops project 
+
+  ||
+
+  developer clone - git clone https://github.com/venkatesh-db/5_Devops_Project_Placements.git
+  copy code to local machine 
+
+   ||
+   This folder exits with two projects 
+   project1 
+   project2 
+
+   ||
+we cannot directly. build and run. 
+   build docker 
+   run docker 
+
+   ||
+   Imagine dev downlaod project on local pc 
+   he has to setup docker kuebernetes 
+   run the docker and kuebernetes
+
+   ||
+   we use jenkins 
+
+   3 stage 
+
+   stage1- downlaod project 
+   stage 2- docker build 
+   stage 3- run the docker 
+
+   ||
+
+   Project outcome 
+
+   jenkins pipeline 
+     - build 
+     - test 
+     - deploy 
+
+     ||
+
+     application server 
+
+     
+
+brew services start jenkins-lts
+
+brew services list
+
+http://localhost:8080
+
+jvt
+1lakhsmiles 
+
+ 
